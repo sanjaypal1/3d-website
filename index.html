@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Room with Furniture</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Basic scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Walls
+        const wallMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+        const wallGeometry = new THREE.PlaneGeometry(10, 10);
+        
+        const wall1 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall1.position.set(0, 5, -5);
+        scene.add(wall1);
+
+        const wall2 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall2.rotation.y = Math.PI / 2;
+        wall2.position.set(-5, 5, 0);
+        scene.add(wall2);
+
+        // Floor
+        const floorGeometry = new THREE.PlaneGeometry(10, 10);
+        const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513, side: THREE.DoubleSide });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = Math.PI / 2;
+        floor.position.y = 0;
+        scene.add(floor);
+
+        // Sofa
+        const sofaGeometry = new THREE.BoxGeometry(2, 1, 1);
+        const sofaMaterial = new THREE.MeshBasicMaterial({ color: 0x2e8b57 });
+        const sofa = new THREE.Mesh(sofaGeometry, sofaMaterial);
+        sofa.position.set(0, 0.5, 0);
+        scene.add(sofa);
+
+        // Table
+        const tableGeometry = new THREE.BoxGeometry(1, 0.5, 1);
+        const tableMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
+        const table = new THREE.Mesh(tableGeometry, tableMaterial);
+        table.position.set(2, 0.25, 2);
+        scene.add(table);
+
+        camera.position.z = 10;
+
+        // Rendering loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
